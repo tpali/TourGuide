@@ -9,17 +9,6 @@
     tools:context="com.paliokimotoramano.alohatourguide.ExplorePage" >
 
     <Button
-        android:id="@+id/exploreButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="127dp"
-        android:paddingLeft="45dp"
-        android:paddingRight="45dp"
-        android:text="Explore" />
-
-    <Button
         android:id="@+id/myListButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,5 +18,58 @@
         android:paddingLeft="45dp"
         android:paddingRight="45dp"
         android:text="My List" />
+
+    <ImageButton
+        android:id="@+id/like_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/exploreButton"
+        android:layout_marginBottom="13dp"
+        android:layout_marginRight="15dp"
+        android:background="@drawable/like_button_final"
+        android:src="@drawable/like_button_final" />
+
+    <ImageButton
+        android:id="@+id/dislike_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/myListButton"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="11dp"
+        android:background="@drawable/dislike_button_final"
+        android:src="@drawable/dislike_button_final" />
+
+    <Button
+        android:id="@+id/exploreButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="133dp"
+        android:paddingLeft="45dp"
+        android:paddingRight="45dp"
+        android:text="Explore" />
+
+    <ImageView
+        android:id="@+id/exploreImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/dislike_button"
+        android:layout_below="@+id/eventName"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="21dp"
+        android:src="@drawable/waimeabw" />
+
+    <TextView
+        android:id="@+id/eventName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/exploreButton"
+        android:layout_below="@+id/myListButton"
+        android:layout_marginLeft="84dp"
+        android:layout_marginTop="14dp"
+        android:text="Event Name"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </RelativeLayout>

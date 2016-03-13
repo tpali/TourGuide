@@ -3,19 +3,22 @@ package com.paliokimotoramano.alohatourguide;
 import java.util.ArrayList;
 import java.util.Random;
 
-import android.media.Image;
+import android.graphics.drawable.Drawable;
+
+
 
 public class OahuEvent {
 	
-	private final Image img;
+	//private final Drawable img;
 	private final int id;
+	private final String name;
 	private final String description;
 	
 	// Constructor for the OahuEvent class
-	// Each OahuEvent has an image, id, and description
-	public OahuEvent(Image img, int id, String description) {
-		this.img = img;
+	// Each OahuEvent has an Drawable, id, and description
+	public OahuEvent(int id, String name, String description) {
 		this.id = id;
+		this.name = name;
 		this.description = description;
 	}
 	
@@ -23,18 +26,23 @@ public class OahuEvent {
 	// NEED TO IMPLEMENT
 	public static ArrayList<OahuEvent> createEvents() {
 		ArrayList<OahuEvent> events = new ArrayList<OahuEvent>();
+		OahuEvent waimeabw = new OahuEvent(R.drawable.waimea, "Jump off Waimea Rock", "Located at Waimea Bay, go jump off the Rock!");
+		OahuEvent giovannis = new OahuEvent(R.drawable.giovannis, "Giovanni's Shrimp Truck", "Located on the North Shore, go get some shrimp!");
+		events.add(waimeabw);
+		events.add(giovannis);
 		return events;
 	}
 	
 	// This method is used to get the next event from a list of events
 	public static OahuEvent nextEvent(ArrayList<OahuEvent> events) {
-		Random rand = null;
-		@SuppressWarnings("null")
-		int randomNum = rand.nextInt(((events.size()-1) - 0) + 1) + 0;
-		
-		return events.get(randomNum);
-		
+		if (events.size() > 0) {
+			OahuEvent randomItem = events.get(new Random().nextInt(events.size()));
+			return randomItem;	
+		} else {
+			return null;
+		}
 	}
+	
 	
 	// This method is used to remove an event from an ArrayList of events
 	public static ArrayList<OahuEvent> removeEvent(OahuEvent event, ArrayList<OahuEvent> eventList) {
@@ -42,11 +50,7 @@ public class OahuEvent {
 		return eventList;
 	}
 	
-	// Accessor Methods for OahuEvent fields
-	public static Image getImage(OahuEvent event) {
-		return event.img;
-	}
-	
+	// Accessor Methods
 	public static int getId(OahuEvent event) {
 		return event.id;
 	}
@@ -55,5 +59,8 @@ public class OahuEvent {
 		return event.description;
 	}
 	
+	public static String getName(OahuEvent event) {
+		return event.name;
+	}
 
 }

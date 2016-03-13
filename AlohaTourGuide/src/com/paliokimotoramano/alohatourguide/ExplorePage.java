@@ -1,18 +1,39 @@
 package com.paliokimotoramano.alohatourguide;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 public class ExplorePage extends Activity {
 	
+	// Boolean to control backbutton on startup
 	public static boolean justOpened = true;
+	
+	// Variable to hold users selected events 
+	public static ArrayList<OahuEvent> myList = new ArrayList<OahuEvent>();
+	// Creates list of events from OahuEvent class
+	public static ArrayList<OahuEvent> events = OahuEvent.createEvents();
+	// Set the currentEvent to a random event from the OahuEvent class
+	public static OahuEvent currentEvent = OahuEvent.nextEvent(events);
+	// Set the previousEvent to the most previously liked or disliked event
+	public static OahuEvent previousEvent;
+	// Set the displayed image to the currentImage
+	ImageView img;
+	TextView name;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,9 +42,47 @@ public class ExplorePage extends Activity {
 		
 		final Button exploreButton = (Button) findViewById(R.id.exploreButton);
 		final Button myListButton = (Button) findViewById(R.id.myListButton);
+		final ImageButton like_button = (ImageButton) findViewById(R.id.like_button);
+		final ImageButton dislike_button = (ImageButton) findViewById(R.id.dislike_button);
+		
+		// Set the image being displayed to currentEvent's image
+		img = (ImageView) findViewById(R.id.exploreImage);
+		img.setImageResource(OahuEvent.getId(currentEvent));
 	
+		name = (TextView) findViewById(R.id.eventName);
+		name.setText(OahuEvent.getName(currentEvent));
+		
+		// Set the Explore Button to Cyan upon opening app
 		exploreButton.setBackgroundColor(Color.CYAN);
 		
+		// When Like Button gets clicked
+		like_button.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				//exploreButton.setBackgroundColor(Color.GREEN);
+				myList.add(currentEvent);
+				previousEvent = currentEvent;
+				events.remove(currentEvent);
+				currentEvent = OahuEvent.nextEvent(events);
+				if (currentEvent != null) {
+					img.setImageResource(OahuEvent.getId(currentEvent));
+					name.setText(OahuEvent.getName(currentEvent));
+				} else {
+					img.setImageResource(R.drawable.nomoreevents);
+					name.setText("No More Events");
+				}
+			}
+		});
+		
+		// When Dislike Button gets clicked
+		dislike_button.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				exploreButton.setBackgroundColor(Color.RED);
+			}	
+		});
+		
+		// When MyList Button gets clicked
 		myListButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
