@@ -1,16 +1,14 @@
 package com.paliokimotoramano.alohatourguide;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
-import android.graphics.drawable.Drawable;
-
-
-
-public class OahuEvent {
+public class OahuEvent implements Serializable {
 	
 	//private final Drawable img;
 	private final int id;
+	// For uniformity, names will be 28 characters (add spaces if necessary)
 	private final String name;
 	private final String description;
 	
@@ -26,8 +24,8 @@ public class OahuEvent {
 	// NEED TO IMPLEMENT
 	public static ArrayList<OahuEvent> createEvents() {
 		ArrayList<OahuEvent> events = new ArrayList<OahuEvent>();
-		OahuEvent waimeabw = new OahuEvent(R.drawable.waimea, "Jump off Waimea Rock", "Located at Waimea Bay, go jump off the Rock!");
-		OahuEvent giovannis = new OahuEvent(R.drawable.giovannis, "Giovanni's Shrimp Truck", "Located on the North Shore, go get some shrimp!");
+		OahuEvent waimeabw = new OahuEvent(R.drawable.waimea, "    Jump off Waimea Rock    ", "Located at Waimea Bay, go jump off the Rock!");
+		OahuEvent giovannis = new OahuEvent(R.drawable.giovannis, "   Giovanni's Shrimp Truck  ", "Located on the North Shore, go get some shrimp!");
 		events.add(waimeabw);
 		events.add(giovannis);
 		return events;
@@ -39,7 +37,8 @@ public class OahuEvent {
 			OahuEvent randomItem = events.get(new Random().nextInt(events.size()));
 			return randomItem;	
 		} else {
-			return null;
+			OahuEvent noMoreEvents = new OahuEvent(R.drawable.nomoreevents, "       No More Events       ", "No need for description");
+			return noMoreEvents;
 		}
 	}
 	

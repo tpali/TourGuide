@@ -1,12 +1,11 @@
 package com.paliokimotoramano.alohatourguide;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,15 +24,18 @@ public class ExplorePage extends Activity {
 	// Variable to hold users selected events 
 	public static ArrayList<OahuEvent> myList = new ArrayList<OahuEvent>();
 	// Creates list of events from OahuEvent class
+	
+	// IS IT THE LINE BELOW?! Check logs
+	
+	
 	public static ArrayList<OahuEvent> events = OahuEvent.createEvents();
 	// Set the currentEvent to a random event from the OahuEvent class
-	public static OahuEvent currentEvent = OahuEvent.nextEvent(events);
+	public static OahuEvent currentEvent;
 	// Set the previousEvent to the most previously liked or disliked event
 	public static OahuEvent previousEvent;
 	// Set the displayed image to the currentImage
 	ImageView img;
 	TextView name;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +47,15 @@ public class ExplorePage extends Activity {
 		final ImageButton like_button = (ImageButton) findViewById(R.id.like_button);
 		final ImageButton dislike_button = (ImageButton) findViewById(R.id.dislike_button);
 		
+		currentEvent = OahuEvent.nextEvent(events);
+		
 		// Set the image being displayed to currentEvent's image
 		img = (ImageView) findViewById(R.id.exploreImage);
 		img.setImageResource(OahuEvent.getId(currentEvent));
-	
+		// Set the title to the currentEvent's name
 		name = (TextView) findViewById(R.id.eventName);
 		name.setText(OahuEvent.getName(currentEvent));
-		
+	
 		// Set the Explore Button to Cyan upon opening app
 		exploreButton.setBackgroundColor(Color.CYAN);
 		
@@ -59,18 +63,15 @@ public class ExplorePage extends Activity {
 		like_button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//exploreButton.setBackgroundColor(Color.GREEN);
-				myList.add(currentEvent);
-				previousEvent = currentEvent;
-				events.remove(currentEvent);
-				currentEvent = OahuEvent.nextEvent(events);
-				if (currentEvent != null) {
+				if (OahuEvent.getName(currentEvent) != "       No More Events       ") {
+					myList.add(currentEvent);
+					previousEvent = currentEvent;
+					events.remove(currentEvent);
+					currentEvent = OahuEvent.nextEvent(events);
+				} 
 					img.setImageResource(OahuEvent.getId(currentEvent));
 					name.setText(OahuEvent.getName(currentEvent));
-				} else {
-					img.setImageResource(R.drawable.nomoreevents);
-					name.setText("No More Events");
-				}
+				
 			}
 		});
 		
@@ -78,7 +79,14 @@ public class ExplorePage extends Activity {
 		dislike_button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				exploreButton.setBackgroundColor(Color.RED);
+				if (OahuEvent.getName(currentEvent) != "       No More Events       ") {
+					previousEvent = currentEvent;
+					events.remove(currentEvent);
+					currentEvent = OahuEvent.nextEvent(events);
+				} 
+					img.setImageResource(OahuEvent.getId(currentEvent));
+					name.setText(OahuEvent.getName(currentEvent));
+				
 			}	
 		});
 		
@@ -87,15 +95,18 @@ public class ExplorePage extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(), MyListPage.class);
-				startActivityForResult(intent, 0);
-				myListButton.setBackgroundColor(Color.CYAN);
+				
+				// Pass myList to MyListPage
+				Bundle args = new Bundle();
+				args.putSerializable("ARRAYLIST",(Serializable)myList);
+				intent.putExtra("BUNDLE",args);
+			
+				startActivity(intent);
 				justOpened = false;
 			}
 			
 		});
-		
-	
-		
+			
 		 
 	}
 
