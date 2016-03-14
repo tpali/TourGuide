@@ -8,6 +8,7 @@ android:layout_height="match_parent" >
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true"
     android:paddingLeft="8dp"
     android:textSize="18sp"
     android:textStyle="bold" />
@@ -16,7 +17,7 @@ android:layout_height="match_parent" >
     android:id="@+id/delete_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_toRightOf="@id/list_item_string"
+    android:layout_alignParentRight="true"
     android:onClick="removeOahuEventOnClickHandler"
     android:src="@android:drawable/ic_menu_delete" />
 
@@ -24,7 +25,7 @@ android:layout_height="match_parent" >
     android:id="@+id/more_information_button"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_toLeftOf="@id/list_item_string"
+    android:layout_alignParentLeft="true"
     android:onClick="informationPageOnClickHandler"
     android:src="@drawable/more_information_button" />
 
