@@ -23,6 +23,7 @@ public class OahuEvent implements Serializable {
 	// This method is used to create the list of events that will be cycled on the Explore Page
 	// NEED TO IMPLEMENT
 	public static ArrayList<OahuEvent> createEvents() {
+		ArrayList<OahuEvent> events = new ArrayList<OahuEvent>();
 		OahuEvent waimeabw = new OahuEvent(R.drawable.waimea, "    Jump off Waimea Rock    ", "Located at Waimea Bay, go jump off the Rock!");
 		OahuEvent giovannis = new OahuEvent(R.drawable.giovannis, "   Giovanni's Shrimp Truck  ", "Located on the North Shore, go get some shrimp!");
 		OahuEvent maksLighthouse = new OahuEvent(R.drawable.makslighthouse, "   Makapu'u Lighthouse Trail   ", "Located on the east side of Oahu, enjoy the view!");
