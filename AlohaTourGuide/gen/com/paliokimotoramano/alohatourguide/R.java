@@ -2026,10 +2026,11 @@ containing a value of this type.
         public static final int giovannis=0x7f02004c;
         public static final int ic_launcher=0x7f02004d;
         public static final int like_button_final=0x7f02004e;
-        public static final int nomoreevents=0x7f02004f;
-        public static final int notification_template_icon_bg=0x7f020052;
-        public static final int waimea=0x7f020050;
-        public static final int waimeabw=0x7f020051;
+        public static final int more_information_button=0x7f02004f;
+        public static final int nomoreevents=0x7f020050;
+        public static final int notification_template_icon_bg=0x7f020053;
+        public static final int waimea=0x7f020051;
+        public static final int waimeabw=0x7f020052;
     }
     public static final class id {
         public static final int action0=0x7f090057;
@@ -2047,7 +2048,7 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f09003e;
         public static final int action_mode_bar_stub=0x7f09003d;
         public static final int action_mode_close_button=0x7f090023;
-        public static final int action_settings=0x7f090064;
+        public static final int action_settings=0x7f090067;
         public static final int activity_chooser_view_content=0x7f090024;
         public static final int alertTitle=0x7f090030;
         public static final int always=0x7f090019;
@@ -2062,6 +2063,7 @@ containing a value of this type.
         public static final int customPanel=0x7f090036;
         public static final int decor_content_parent=0x7f09003f;
         public static final int default_activity_button=0x7f090027;
+        public static final int delete_button=0x7f090065;
         public static final int disableHome=0x7f09000d;
         public static final int dislike_button=0x7f090053;
         public static final int edit_query=0x7f090043;
@@ -2083,8 +2085,10 @@ containing a value of this type.
         public static final int line3=0x7f090060;
         public static final int listMode=0x7f09000a;
         public static final int list_item=0x7f090028;
+        public static final int list_item_string=0x7f090064;
         public static final int media_actions=0x7f09005a;
         public static final int middle=0x7f090020;
+        public static final int more_information_button=0x7f090066;
         public static final int multiply=0x7f090014;
         public static final int myListButton=0x7f090050;
         public static final int mylistview=0x7f090056;
@@ -2206,10 +2210,11 @@ containing a value of this type.
         public static final int notification_template_media=0x7f030020;
         public static final int notification_template_part_chronometer=0x7f030021;
         public static final int notification_template_part_time=0x7f030022;
-        public static final int select_dialog_item_material=0x7f030023;
-        public static final int select_dialog_multichoice_material=0x7f030024;
-        public static final int select_dialog_singlechoice_material=0x7f030025;
-        public static final int support_simple_spinner_dropdown_item=0x7f030026;
+        public static final int oahu_event_listview_item=0x7f030023;
+        public static final int select_dialog_item_material=0x7f030024;
+        public static final int select_dialog_multichoice_material=0x7f030025;
+        public static final int select_dialog_singlechoice_material=0x7f030026;
+        public static final int support_simple_spinner_dropdown_item=0x7f030027;
     }
     public static final class menu {
         public static final int explore_page=0x7f0c0000;

@@ -40,9 +40,7 @@ public class MyListPage extends Activity {
 		}
 		
 		displayedList = (ListView) findViewById(R.id.mylistview);
-		
-		
-		
+			
 		ArrayAdapter<String> adapter=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, names);
 		displayedList.setAdapter(adapter);
 		
@@ -55,9 +53,6 @@ public class MyListPage extends Activity {
 			
 		});
 		
-	
-		
-		 
 	}
 
 	@Override
@@ -86,5 +81,10 @@ public class MyListPage extends Activity {
 	    startActivity(new Intent(this, ExplorePage.class));
 	}
 	
+	/*public void removeAtomPayOnClickHandler(View v) {
+		OahuEvent itemToRemove = (OahuEvent)v.getTag();
+		adapter.remove(itemToRemove);
+	}
+	*/
 	
 }

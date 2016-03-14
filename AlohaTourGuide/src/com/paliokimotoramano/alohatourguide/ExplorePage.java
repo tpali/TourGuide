@@ -118,7 +118,6 @@ public class ExplorePage extends Activity {
 	}
 
 	
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -134,7 +133,12 @@ public class ExplorePage extends Activity {
 	@Override
 	public void onBackPressed() {
 		if (!(justOpened)) {
-	    startActivity(new Intent(this, MyListPage.class));
+			Intent intent = new Intent(this, MyListPage.class);
+			// Pass myList to MyListPage
+			Bundle args = new Bundle();
+			args.putSerializable("ARRAYLIST",(Serializable)myList);
+			intent.putExtra("BUNDLE",args);
+			startActivity(intent);
 		}
 	}
 }
