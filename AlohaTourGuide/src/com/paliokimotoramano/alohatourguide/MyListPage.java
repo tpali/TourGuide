@@ -1,6 +1,8 @@
 package com.paliokimotoramano.alohatourguide;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,6 +21,8 @@ public class MyListPage extends Activity {
 	
 	ListView displayedList;
 	ArrayList<String> names = new ArrayList<String>();
+	OahuEventListAdapter adapter;
+	ArrayList<OahuEvent> myList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +36,14 @@ public class MyListPage extends Activity {
 		
 		Intent intent = getIntent();
 		Bundle args = intent.getBundleExtra("BUNDLE");
-		ArrayList<OahuEvent> myList = (ArrayList<OahuEvent>) args.getSerializable("ARRAYLIST");
+		myList = (ArrayList<OahuEvent>) args.getSerializable("ARRAYLIST");
 		
+		adapter = new OahuEventListAdapter(MyListPage.this, R.layout.oahu_event_listview_item, (List<OahuEvent>)myList);
+		ListView myListView = (ListView)findViewById(R.id.mylistview);
+		myListView.setAdapter(adapter);
+		
+		
+		/*
 		// Get trimmed names of events
 		for (OahuEvent current: myList) {
 			  names.add(OahuEvent.getName(current).trim());
@@ -43,12 +53,18 @@ public class MyListPage extends Activity {
 			
 		ArrayAdapter<String> adapter=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, names);
 		displayedList.setAdapter(adapter);
+		*/
 		
 		exploreButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				//Intent intent = new Intent(v.getContext(), ExplorePage.class);
+				//startActivityForResult(intent, 0);
 				Intent intent = new Intent(v.getContext(), ExplorePage.class);
-				startActivityForResult(intent, 0);
+				Bundle args = new Bundle();
+				args.putSerializable("ARRAYLIST",(Serializable)myList);
+				intent.putExtra("BUNDLE",args);
+				startActivity(intent);
 			}
 			
 		});
@@ -81,10 +97,11 @@ public class MyListPage extends Activity {
 	    startActivity(new Intent(this, ExplorePage.class));
 	}
 	
-	/*public void removeAtomPayOnClickHandler(View v) {
+	public void removeOahuEventOnClickHandler(View v) {
 		OahuEvent itemToRemove = (OahuEvent)v.getTag();
 		adapter.remove(itemToRemove);
+		myList.remove(itemToRemove);
 	}
-	*/
+	
 	
 }

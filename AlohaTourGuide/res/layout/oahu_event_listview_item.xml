@@ -17,7 +17,7 @@ android:layout_height="match_parent" >
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_toRightOf="@id/list_item_string"
-    android:onClick="removeAtomPayOnClickHandler"
+    android:onClick="removeOahuEventOnClickHandler"
     android:src="@android:drawable/ic_menu_delete" />
 
 <ImageButton
@@ -25,7 +25,7 @@ android:layout_height="match_parent" >
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_toLeftOf="@id/list_item_string"
-    android:onClick="removeAtomPayOnClickHandler"
+    android:onClick="informationPageOnClickHandler"
     android:src="@drawable/more_information_button" />
 
 </RelativeLayout>

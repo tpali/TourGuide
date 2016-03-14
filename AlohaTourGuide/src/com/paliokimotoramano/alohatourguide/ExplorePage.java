@@ -47,6 +47,14 @@ public class ExplorePage extends Activity {
 		final ImageButton like_button = (ImageButton) findViewById(R.id.like_button);
 		final ImageButton dislike_button = (ImageButton) findViewById(R.id.dislike_button);
 		
+		
+		if (!(justOpened)) {
+		Intent intent = getIntent();
+		
+		Bundle args = intent.getBundleExtra("BUNDLE");
+		myList = (ArrayList<OahuEvent>) args.getSerializable("ARRAYLIST");
+		}
+		
 		currentEvent = OahuEvent.nextEvent(events);
 		
 		// Set the image being displayed to currentEvent's image

@@ -2022,15 +2022,23 @@ containing a value of this type.
         public static final int abc_textfield_search_activated_mtrl_alpha=0x7f020048;
         public static final int abc_textfield_search_default_mtrl_alpha=0x7f020049;
         public static final int abc_textfield_search_material=0x7f02004a;
-        public static final int dislike_button_final=0x7f02004b;
-        public static final int giovannis=0x7f02004c;
-        public static final int ic_launcher=0x7f02004d;
-        public static final int like_button_final=0x7f02004e;
-        public static final int more_information_button=0x7f02004f;
-        public static final int nomoreevents=0x7f020050;
-        public static final int notification_template_icon_bg=0x7f020053;
-        public static final int waimea=0x7f020051;
-        public static final int waimeabw=0x7f020052;
+        public static final int diamondheadhike=0x7f02004b;
+        public static final int dislike_button_final=0x7f02004c;
+        public static final int giovannis=0x7f02004d;
+        public static final int hanaaumabay=0x7f02004e;
+        public static final int ic_launcher=0x7f02004f;
+        public static final int kokohead=0x7f020050;
+        public static final int like_button_final=0x7f020051;
+        public static final int makslighthouse=0x7f020052;
+        public static final int maunawili=0x7f020053;
+        public static final int more_information_button=0x7f020054;
+        public static final int nomoreevents=0x7f020055;
+        public static final int notification_template_icon_bg=0x7f02005b;
+        public static final int spittingcaves=0x7f020056;
+        public static final int stairway=0x7f020057;
+        public static final int waimea=0x7f020058;
+        public static final int waimeabw=0x7f020059;
+        public static final int yokohama=0x7f02005a;
     }
     public static final class id {
         public static final int action0=0x7f090057;
