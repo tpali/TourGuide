@@ -108,7 +108,6 @@ public class ExplorePage extends Activity {
 				Bundle args = new Bundle();
 				args.putSerializable("ARRAYLIST",(Serializable)myList);
 				intent.putExtra("BUNDLE",args);
-			
 				startActivity(intent);
 				justOpened = false;
 			}

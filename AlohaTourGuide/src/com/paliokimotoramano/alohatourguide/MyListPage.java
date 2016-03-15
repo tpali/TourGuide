@@ -43,18 +43,6 @@ public class MyListPage extends Activity {
 		myListView.setAdapter(adapter);
 		
 		
-		/*
-		// Get trimmed names of events
-		for (OahuEvent current: myList) {
-			  names.add(OahuEvent.getName(current).trim());
-		}
-		
-		displayedList = (ListView) findViewById(R.id.mylistview);
-			
-		ArrayAdapter<String> adapter=new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, names);
-		displayedList.setAdapter(adapter);
-		*/
-		
 		exploreButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -94,13 +82,30 @@ public class MyListPage extends Activity {
 	
 	@Override
 	public void onBackPressed() {
-	    startActivity(new Intent(this, ExplorePage.class));
+		Intent intent = new Intent(this, ExplorePage.class);
+		// Pass myList to MyListPage
+		Bundle args = new Bundle();
+		args.putSerializable("ARRAYLIST",(Serializable)myList);
+		intent.putExtra("BUNDLE",args);
+		startActivity(intent);
 	}
 	
 	public void removeOahuEventOnClickHandler(View v) {
 		OahuEvent itemToRemove = (OahuEvent)v.getTag();
 		adapter.remove(itemToRemove);
 		myList.remove(itemToRemove);
+	}
+	
+	
+	public void informationPageOnClickHandler(View v) {
+		OahuEvent itemToView = (OahuEvent)v.getTag();
+		Intent intent = new Intent(this, MoreInformationPage.class);
+		// Pass myList to MyListPage
+		Bundle args = new Bundle();
+		args.putSerializable("OAHUEVENT", (Serializable)itemToView);
+		args.putSerializable("ARRAYLIST",(Serializable)myList);
+		intent.putExtra("BUNDLE",args);
+		startActivity(intent);
 	}
 	
 	

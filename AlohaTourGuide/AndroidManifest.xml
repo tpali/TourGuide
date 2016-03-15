@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".MyListPage"> 
         </activity>
+        <activity android:name=".MoreInformationPage"> 
+        </activity>
     </application>
 
 </manifest>
