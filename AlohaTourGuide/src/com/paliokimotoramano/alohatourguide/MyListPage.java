@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -19,10 +22,20 @@ import android.widget.ListView;
 
 public class MyListPage extends Activity {
 	
+	// Variables for the confirmDelete prompt
+	protected static final int DIALOG_REMOVE_CALC = 1;
+	protected static final int DIALOG_REMOVE_PERSON = 2;
+	
 	ListView displayedList;
 	ArrayList<String> names = new ArrayList<String>();
 	OahuEventListAdapter adapter;
 	ArrayList<OahuEvent> myList;
+	ArrayList<OahuEvent> events;
+	String previousPage;
+	OahuEvent eventPassedFromMoreInfo;
+	Bundle args;
+	Intent intent;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +44,16 @@ public class MyListPage extends Activity {
 		
 		final Button exploreButton = (Button) findViewById(R.id.exploreButton);
 		final Button myListButton = (Button) findViewById(R.id.myListButton);
+		final Button resetButton = (Button) findViewById(R.id.reset_button);
 		
 		myListButton.setBackgroundColor(Color.CYAN);
 		
-		Intent intent = getIntent();
-		Bundle args = intent.getBundleExtra("BUNDLE");
-		myList = (ArrayList<OahuEvent>) args.getSerializable("ARRAYLIST");
+		
+		intent = getIntent();
+		args = intent.getBundleExtra("BUNDLE");
+		myList = (ArrayList<OahuEvent>) args.getSerializable("MYLIST");
+		events = (ArrayList<OahuEvent>) args.getSerializable("EVENTS");
+		previousPage = (String) args.getSerializable("PREVIOUSPAGE");
 		
 		adapter = new OahuEventListAdapter(MyListPage.this, R.layout.oahu_event_listview_item, (List<OahuEvent>)myList);
 		ListView myListView = (ListView)findViewById(R.id.mylistview);
@@ -46,13 +63,17 @@ public class MyListPage extends Activity {
 		exploreButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				//Intent intent = new Intent(v.getContext(), ExplorePage.class);
-				//startActivityForResult(intent, 0);
 				Intent intent = new Intent(v.getContext(), ExplorePage.class);
-				Bundle args = new Bundle();
-				args.putSerializable("ARRAYLIST",(Serializable)myList);
-				intent.putExtra("BUNDLE",args);
+				intent.putExtra("BUNDLE",createBundle());
 				startActivity(intent);
+			}
+			
+		});
+		
+		resetButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				resetEventList();
 			}
 			
 		});
@@ -82,18 +103,44 @@ public class MyListPage extends Activity {
 	
 	@Override
 	public void onBackPressed() {
-		Intent intent = new Intent(this, ExplorePage.class);
-		// Pass myList to MyListPage
-		Bundle args = new Bundle();
-		args.putSerializable("ARRAYLIST",(Serializable)myList);
-		intent.putExtra("BUNDLE",args);
-		startActivity(intent);
+		if (previousPage.equals("ExplorePage")) {
+			Intent intent = new Intent(this, ExplorePage.class);
+			// Pass myList to ExplorePage
+			intent.putExtra("BUNDLE",createBundle());
+			startActivity(intent);
+		} else if (previousPage.equals("MoreInformationPage")) {
+			eventPassedFromMoreInfo = (OahuEvent) args.getSerializable("OAHUEVENT");
+			Intent intent = new Intent(this, MoreInformationPage.class);
+			Bundle args = createBundle();
+			args.putSerializable("OAHUEVENT", (Serializable)eventPassedFromMoreInfo);
+			intent.putExtra("BUNDLE",args);
+			startActivity(intent);
+		} 
 	}
 	
 	public void removeOahuEventOnClickHandler(View v) {
-		OahuEvent itemToRemove = (OahuEvent)v.getTag();
-		adapter.remove(itemToRemove);
-		myList.remove(itemToRemove);
+		final OahuEvent itemToRemove = (OahuEvent)v.getTag();
+		AlertDialog.Builder confirm = new AlertDialog.Builder(this);
+		confirm.setMessage("Delete event from My List?");
+		confirm.setCancelable(false);
+		
+		confirm.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				adapter.remove(itemToRemove);
+				myList.remove(itemToRemove);
+			}
+		});
+		
+		confirm.setNegativeButton("No", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// Do nothing
+			}
+		});
+		
+		confirm.create().show();
+		
 	}
 	
 	
@@ -101,12 +148,45 @@ public class MyListPage extends Activity {
 		OahuEvent itemToView = (OahuEvent)v.getTag();
 		Intent intent = new Intent(this, MoreInformationPage.class);
 		// Pass myList to MyListPage
-		Bundle args = new Bundle();
+		Bundle args = createBundle();
 		args.putSerializable("OAHUEVENT", (Serializable)itemToView);
-		args.putSerializable("ARRAYLIST",(Serializable)myList);
 		intent.putExtra("BUNDLE",args);
 		startActivity(intent);
 	}
+	
+	public void resetEventList() {
+	events = OahuEvent.createEvents();
+		for (OahuEvent cur : myList) {
+			if (myList.contains(cur)) {
+				events.remove(cur);
+			}
+		}
+	}
+	
+	private Bundle createBundle() {
+		previousPage = "MyListPage";
+		Bundle args = new Bundle();
+		args.putSerializable("MYLIST",(Serializable)myList);
+		args.putSerializable("EVENTS",(Serializable)events);
+		args.putSerializable("PREVIOUSPAGE", (Serializable)previousPage);
+		return args;
+	}
+	
+	/*
+	private Dialog createDialogRemoveConfirm(final int dialogRemove) {
+	return new AlertDialog.Builder(getApplicationContext())
+	.setIcon(R.drawable.trashbin_icon)
+	.setTitle(R.string.calculation_dialog_remove_text)
+	.setPositiveButton(R.string.calculation_dialog_button_ok, new DialogInterface.OnClickListener() {
+		public void onClick(DialogInterface dialog, int whichButton) {
+			handleRemoveConfirm(dialogRemove);
+		}
+	})
+	.setNegativeButton(R.string.calculation_dialog_button_cancel, null)
+	.create();
+	}
+	*/
+	
 	
 	
 }

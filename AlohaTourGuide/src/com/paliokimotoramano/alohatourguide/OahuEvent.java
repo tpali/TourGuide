@@ -77,5 +77,19 @@ public class OahuEvent implements Serializable {
 	public static String getName(OahuEvent event) {
 		return event.name;
 	}
+	
+	//
+	@Override
+    public boolean equals(Object object)
+    {
+		boolean sameSame = false;
+
+        if (object != null && object instanceof OahuEvent)
+        {
+            sameSame = OahuEvent.getId(this) == ((OahuEvent) object).id;
+        }
+
+        return sameSame;
+    }
 
 }

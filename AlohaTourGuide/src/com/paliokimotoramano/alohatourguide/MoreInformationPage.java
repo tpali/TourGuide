@@ -21,6 +21,8 @@ public class MoreInformationPage extends Activity {
 
 	OahuEvent currentEvent;
 	ArrayList<OahuEvent> myList;
+	ArrayList<OahuEvent> events;
+	String previousPage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,10 @@ public class MoreInformationPage extends Activity {
 		Intent intent = getIntent();
 		Bundle args = intent.getBundleExtra("BUNDLE");
 		currentEvent = (OahuEvent) args.getSerializable("OAHUEVENT");
-		myList = (ArrayList<OahuEvent>) args.getSerializable("ARRAYLIST");
+		myList = (ArrayList<OahuEvent>) args.getSerializable("MYLIST");
+		events = (ArrayList<OahuEvent>) args.getSerializable("EVENTS");
+		previousPage = (String) args.getSerializable("PREVIOUSPAGE");
+		
 		
 		// Create variables for displayed views
 		TextView eventName = (TextView)findViewById(R.id.eventName);
@@ -67,13 +72,28 @@ public class MoreInformationPage extends Activity {
 	
 	@Override
 	public void onBackPressed() {
-		Intent intent = new Intent(this, MyListPage.class);
-		// Pass myList to MyListPage
-		Bundle args = new Bundle();
-		args.putSerializable("ARRAYLIST",(Serializable)myList);
-		intent.putExtra("BUNDLE",args);
-		startActivity(intent);  
+		if (previousPage.equals("MyListPage")) {
+			Intent intent = new Intent(this, MyListPage.class);
+			// Pass myList to MyListPage
+			intent.putExtra("BUNDLE",createBundle());
+			startActivity(intent);
+		} else if (previousPage.equals("ExplorePage")) {
+			Intent intent = new Intent(this, MoreInformationPage.class);
+			Bundle args = createBundle();
+			intent.putExtra("BUNDLE",args);
+			startActivity(intent);
+		} 
 	    
+	}
+	
+	private Bundle createBundle() {
+		previousPage = "MoreInformationPage";
+		Bundle args = new Bundle();
+		args.putSerializable("MYLIST",(Serializable)myList);
+		args.putSerializable("EVENTS",(Serializable)events);
+		args.putSerializable("PREVIOUSPAGE", (Serializable)previousPage);
+		args.putSerializable("OAHUEVENT", (Serializable)currentEvent);
+		return args;
 	}
 	
 }
