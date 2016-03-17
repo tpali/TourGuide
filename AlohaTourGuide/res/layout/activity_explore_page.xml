@@ -21,25 +21,25 @@
         android:text="My List" />
 
     <ImageButton
-        android:id="@+id/like_button"
+        android:id="@+id/dislike_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/exploreButton"
         android:layout_marginBottom="13dp"
         android:layout_marginRight="15dp"
-        android:background="@drawable/like_button_final"
-        android:src="@drawable/like_button_final" />
+        android:background="@drawable/dislike_button_final"
+        android:src="@drawable/dislike_button_final" />
 
     <ImageButton
-        android:id="@+id/dislike_button"
+        android:id="@+id/like_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/myListButton"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="11dp"
-        android:background="@drawable/dislike_button_final"
-        android:src="@drawable/dislike_button_final" />
+        android:background="@drawable/like_button_final"
+        android:src="@drawable/like_button_final" />
 
     <Button
         android:id="@+id/exploreButton"
@@ -57,7 +57,7 @@
         android:id="@+id/exploreImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/dislike_button"
+        android:layout_alignRight="@+id/like_button"
         android:layout_below="@+id/eventName"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
