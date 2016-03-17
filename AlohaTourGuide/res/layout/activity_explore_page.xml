@@ -61,8 +61,11 @@
         android:layout_below="@+id/eventName"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
         android:maxWidth="400dp"  
  		android:maxHeight="600dp"
+ 		android:background="#A6A6A6"
+		android:padding="10dp"
         android:src="@drawable/waimeabw" />
 
     <TextView

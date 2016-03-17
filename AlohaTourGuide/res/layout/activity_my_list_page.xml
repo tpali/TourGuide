@@ -16,7 +16,7 @@
         android:layout_alignBottom="@+id/exploreButton"
         android:layout_toRightOf="@+id/exploreButton"
         android:paddingLeft="45dp"
-        android:paddingRight="45dp"
+        android:paddingRight="35dp"
         android:textStyle="bold"
         android:text="My List" />
     

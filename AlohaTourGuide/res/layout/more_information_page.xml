@@ -18,6 +18,8 @@
   		android:maxWidth="400dp"  
  		android:maxHeight="600dp"  
  		android:scaleType="fitCenter"  
+ 		android:background="#A6A6A6"
+		android:padding="10dp"
         android:src="@drawable/waimeabw" />
 
     <TextView
