@@ -58,7 +58,7 @@ public class ExplorePage extends Activity {
 		currentEvent = (OahuEvent) args.getSerializable("OAHUEVENT");
 		}
 		
-		if (justOpened || (OahuEvent.getName(currentEvent) != "       No More Events       ")) {
+		if (justOpened || (OahuEvent.getName(currentEvent) == "       No More Events       ") || events.size() > 0) {
 		currentEvent = OahuEvent.nextEvent(events);
 		}
 		
@@ -217,4 +217,35 @@ public class ExplorePage extends Activity {
 		args.putSerializable("OAHUEVENT", (Serializable)currentEvent);
 		return args;
 	}
+	
+	@Override
+	public void onSaveInstanceState(Bundle savedInstanceState) {
+	  super.onSaveInstanceState(savedInstanceState);
+	  // Save UI state changes to the savedInstanceState.
+	  // This bundle will be passed to onCreate if the process is
+	  // killed and restarted.
+	  	savedInstanceState.putSerializable("MYLIST",(Serializable)myList);
+	  	savedInstanceState.putSerializable("EVENTS",(Serializable)events);
+	  	savedInstanceState.putSerializable("PREVIOUSPAGE", (Serializable)previousPage);
+	  	savedInstanceState.putSerializable("OAHUEVENT", (Serializable)currentEvent);
+	}
+	
+	@Override
+	public void onRestoreInstanceState(Bundle savedInstanceState) {
+	  super.onRestoreInstanceState(savedInstanceState);
+	  // Restore UI state from the savedInstanceState.
+	  // This bundle has also been passed to onCreate.
+		myList = (ArrayList<OahuEvent>) savedInstanceState.getSerializable("MYLIST");
+		events = (ArrayList<OahuEvent>) savedInstanceState.getSerializable("EVENTS");
+		previousPage = (String) savedInstanceState.getSerializable("PREVIOUSPAGE");
+		currentEvent = (OahuEvent) savedInstanceState.getSerializable("OAHUEVENT");
+		
+		// Set the image being displayed to currentEvent's image
+		img = (ImageView) findViewById(R.id.exploreImage);
+		img.setImageResource(OahuEvent.getId(currentEvent));
+		// Set the title to the currentEvent's name
+		name = (TextView) findViewById(R.id.eventName);
+		name.setText(OahuEvent.getName(currentEvent));
+	}
+	
 }

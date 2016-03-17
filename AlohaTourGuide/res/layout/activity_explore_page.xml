@@ -17,6 +17,7 @@
         android:layout_toRightOf="@+id/exploreButton"
         android:paddingLeft="45dp"
         android:paddingRight="45dp"
+        android:textStyle="bold"
         android:text="My List" />
 
     <ImageButton
@@ -49,6 +50,7 @@
         android:layout_marginLeft="133dp"
         android:paddingLeft="45dp"
         android:paddingRight="45dp"
+        android:textStyle="bold"
         android:text="Explore" />
 
     <ImageView
