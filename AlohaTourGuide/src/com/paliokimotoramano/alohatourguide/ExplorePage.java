@@ -58,7 +58,7 @@ public class ExplorePage extends Activity {
 		currentEvent = (OahuEvent) args.getSerializable("OAHUEVENT");
 		}
 		
-		if (justOpened || (OahuEvent.getName(currentEvent) == "       No More Events       ") || events.size() > 0) {
+		if (justOpened || (OahuEvent.getName(currentEvent) == "       No More Events       ") || (previousPage.equals("MyListPage") && events.size() > 0)) {
 		currentEvent = OahuEvent.nextEvent(events);
 		}
 		
@@ -218,6 +218,7 @@ public class ExplorePage extends Activity {
 		return args;
 	}
 	
+	// Have not figured out how to save instance of app after closing, must edit the two methods below
 	@Override
 	public void onSaveInstanceState(Bundle savedInstanceState) {
 	  super.onSaveInstanceState(savedInstanceState);
