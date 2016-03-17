@@ -11,6 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+/*
+ * Adapter class to read in OahuEvents into ours ListView
+ */
 public class OahuEventListAdapter extends ArrayAdapter<OahuEvent> {
 
 	private List<OahuEvent> items;
@@ -24,7 +27,7 @@ public class OahuEventListAdapter extends ArrayAdapter<OahuEvent> {
 		this.items = items;
 	}
 
-
+	// Gets the view from the created adapter instance and sets appropriate fields
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View row = convertView;
@@ -50,12 +53,14 @@ public class OahuEventListAdapter extends ArrayAdapter<OahuEvent> {
 		return row;
 	}
 
+	// Setup item so that fieds can be retrieved from the ListView element
 	private void setupItem(OahuEventHolder holder) {
 		holder.name.setText(OahuEvent.getName(holder.OahuEvent).trim());
 		holder.description = OahuEvent.getDescription(holder.OahuEvent);
 		holder.id = OahuEvent.getId(holder.OahuEvent);
 	}
-
+	
+	// Holder for holding all fields for a ListView element
 	public static class OahuEventHolder {
 		OahuEvent OahuEvent;
 		TextView name;

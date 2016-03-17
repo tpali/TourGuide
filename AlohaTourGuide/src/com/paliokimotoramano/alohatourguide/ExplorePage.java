@@ -39,6 +39,7 @@ public class ExplorePage extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_explore_page);
 		
+		// Variables for all buttons
 		final Button exploreButton = (Button) findViewById(R.id.exploreButton);
 		final Button myListButton = (Button) findViewById(R.id.myListButton);
 		final ImageButton like_button = (ImageButton) findViewById(R.id.like_button);
@@ -47,10 +48,11 @@ public class ExplorePage extends Activity {
 		final Button skip_button = (Button) findViewById(R.id.skip_button);
 		final Button undo_button = (Button) findViewById(R.id.undo_button);
 		
-		
+		// If the app was not just opened, getIntent from previousPage
 		if (!(justOpened)) {
 		Intent intent = getIntent();
 		
+		// Set local variables to the passed values in the bundle
 		Bundle args = intent.getBundleExtra("BUNDLE");
 		myList = (ArrayList<OahuEvent>) args.getSerializable("MYLIST");
 		events = (ArrayList<OahuEvent>) args.getSerializable("EVENTS");
@@ -58,6 +60,7 @@ public class ExplorePage extends Activity {
 		currentEvent = (OahuEvent) args.getSerializable("OAHUEVENT");
 		}
 		
+		// Check if a new event should be cycled
 		if (justOpened || (OahuEvent.getName(currentEvent) == "       No More Events       ") || (previousPage.equals("MyListPage") && events.size() > 0)) {
 		currentEvent = OahuEvent.nextEvent(events);
 		}
@@ -76,15 +79,17 @@ public class ExplorePage extends Activity {
 		like_button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				// Check that we are not at the end of the event pool
 				if (OahuEvent.getName(currentEvent) != "       No More Events       ") {
+					// Add currentEvent to myList & set previousEvent to the currentEvent & remove currentEvent from event pool & get next event
 					myList.add(currentEvent);
 					previousEvent = currentEvent;
 					events.remove(currentEvent);
 					currentEvent = OahuEvent.nextEvent(events);
 				} 
+					// Set views to new events fields
 					img.setImageResource(OahuEvent.getId(currentEvent));
 					name.setText(OahuEvent.getName(currentEvent));
-				
 			}
 		});
 		
@@ -92,14 +97,16 @@ public class ExplorePage extends Activity {
 		dislike_button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				// Check that we are not at the end of the event pool
 				if (OahuEvent.getName(currentEvent) != "       No More Events       ") {
+					// Set previousEvent to the currentEvent & remove currentEvent from event pool & get next event
 					previousEvent = currentEvent;
 					events.remove(currentEvent);
 					currentEvent = OahuEvent.nextEvent(events);
 				} 
+				// Set views to new events fields
 					img.setImageResource(OahuEvent.getId(currentEvent));
-					name.setText(OahuEvent.getName(currentEvent));
-				
+					name.setText(OahuEvent.getName(currentEvent));	
 			}	
 		});
 		
@@ -107,13 +114,14 @@ public class ExplorePage extends Activity {
 				skip_button.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
+						// Set previousEvent to currentEvent & get next event
 						if (OahuEvent.getName(currentEvent) != "       No More Events       ") {
 							previousEvent = currentEvent;
 							currentEvent = OahuEvent.nextEvent(events);
 						} 
+							// Set views to new events fields
 							img.setImageResource(OahuEvent.getId(currentEvent));
 							name.setText(OahuEvent.getName(currentEvent));
-						
 					}	
 				});
 		
@@ -121,20 +129,23 @@ public class ExplorePage extends Activity {
 				undo_button.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
+						// Check that previousEvent is not null & then set currentEvent to previousEvent
 						if (previousEvent != null) {
 							currentEvent = previousEvent;
+							// Check if the userliked the event & if so removes it from myList & add it back to event pool
 							if (myList.contains(currentEvent)) {
 								myList.remove(currentEvent);
 								events.add(previousEvent);
+							// Check if the user hit the SKIP button
 							} else if (events.contains(currentEvent)) {
-								myList.remove(currentEvent);
+							// Do nothing because currentEvent will be set in beginning of loop
+							// If the user didn't like or skip the event, they hit dislike. So add it back to event pool
 							} else {
 								events.add(currentEvent);
 							}
-						 
+							// Set views to new events fields
 							img.setImageResource(OahuEvent.getId(currentEvent));
 							name.setText(OahuEvent.getName(currentEvent));
-						
 						}	
 					}
 				});		
@@ -145,7 +156,7 @@ public class ExplorePage extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(v.getContext(), MyListPage.class);
-				// Pass myList to MyListPage
+				// Create Bundle and pass it to MyListPage, also set justOpened to false
 				intent.putExtra("BUNDLE",createBundle());
 				startActivity(intent);
 				justOpened = false;
@@ -153,10 +164,11 @@ public class ExplorePage extends Activity {
 			
 		});
 		
+		// If more information button gets clicked
 		more_information_button.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+				// Create Bundle and pass it to MoreInformationPage, also set justOpened to false, checks if currentEvent is an actual event
 				if (OahuEvent.getName(currentEvent) != "       No More Events       ") {
 					Intent intent = new Intent(v.getContext(), MoreInformationPage.class);
 					// Pass myList to MyListPage
@@ -179,7 +191,6 @@ public class ExplorePage extends Activity {
 		return true;
 	}
 
-	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -192,6 +203,7 @@ public class ExplorePage extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	// Function to handle back button presses, takes into account the previousPage and sends you back there
 	@Override
 	public void onBackPressed() {
 		if (!(justOpened)) {
@@ -208,6 +220,7 @@ public class ExplorePage extends Activity {
 		}
 	}
 	
+	// Creates Bundles which are passed between activities to exchange information
 	private Bundle createBundle() {
 		previousPage = "ExplorePage";
 		Bundle args = new Bundle();

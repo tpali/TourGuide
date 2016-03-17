@@ -4,6 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Random;
 
+/*
+ * Object class for holding OahuEvents
+ * Each event has an id (to retrive its corresponding image)
+ * A name to be dispalyed as a title
+ * A description for the More Information Pages
+ * Implements Serializable in order to pass ArrayLists of type OahuEvent in Bundles
+ */
 public class OahuEvent implements Serializable {
 	
 	//private final Drawable img;
@@ -21,7 +28,7 @@ public class OahuEvent implements Serializable {
 	}
 	
 	// This method is used to create the list of events that will be cycled on the Explore Page
-	// NEED TO IMPLEMENT
+	// Must add more to thisss
 	public static ArrayList<OahuEvent> createEvents() {
 		ArrayList<OahuEvent> events = new ArrayList<OahuEvent>();
 		OahuEvent waimeabw = new OahuEvent(R.drawable.waimea, "    Jump off Waimea Rock    ", "Located at Waimea Bay, go jump off the Rock!");
@@ -78,7 +85,8 @@ public class OahuEvent implements Serializable {
 		return event.name;
 	}
 	
-	//
+	// Had to rewrite equals in order to properly use ArrayList.contains(Object o) for OahuEvents
+	// Needed in order to get reset function to work properly
 	@Override
     public boolean equals(Object object)
     {

@@ -18,7 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class MoreInformationPage extends Activity {
-
+	// Local variables
 	OahuEvent currentEvent;
 	ArrayList<OahuEvent> myList;
 	ArrayList<OahuEvent> events;
@@ -29,13 +29,13 @@ public class MoreInformationPage extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.more_information_page);
 		
+		// Not default page so get intent from previousPage & set varibles
 		Intent intent = getIntent();
 		Bundle args = intent.getBundleExtra("BUNDLE");
 		currentEvent = (OahuEvent) args.getSerializable("OAHUEVENT");
 		myList = (ArrayList<OahuEvent>) args.getSerializable("MYLIST");
 		events = (ArrayList<OahuEvent>) args.getSerializable("EVENTS");
 		previousPage = (String) args.getSerializable("PREVIOUSPAGE");
-		
 		
 		// Create variables for displayed views
 		TextView eventName = (TextView)findViewById(R.id.eventName);
@@ -70,6 +70,7 @@ public class MoreInformationPage extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	// Function to handle back button presses, takes into account the previousPage and sends you back there
 	@Override
 	public void onBackPressed() {
 		if (previousPage.equals("MyListPage")) {
@@ -86,6 +87,7 @@ public class MoreInformationPage extends Activity {
 	    
 	}
 	
+	// Creates Bundles which are passed between activities to exchange informations
 	private Bundle createBundle() {
 		previousPage = "MoreInformationPage";
 		Bundle args = new Bundle();

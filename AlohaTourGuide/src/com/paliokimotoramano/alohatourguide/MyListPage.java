@@ -21,11 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 public class MyListPage extends Activity {
-	
-	// Variables for the confirmDelete prompt
-	protected static final int DIALOG_REMOVE_CALC = 1;
-	protected static final int DIALOG_REMOVE_PERSON = 2;
-	
+	// Local variables 	
 	ListView displayedList;
 	ArrayList<String> names = new ArrayList<String>();
 	OahuEventListAdapter adapter;
@@ -42,25 +38,26 @@ public class MyListPage extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_list_page);
 		
+		// Variables for buttons
 		final Button exploreButton = (Button) findViewById(R.id.exploreButton);
 		final Button myListButton = (Button) findViewById(R.id.myListButton);
 		final Button resetButton = (Button) findViewById(R.id.reset_button);
-		
+		// Set the color of the myListButton to CYAN
 		myListButton.setBackgroundColor(Color.CYAN);
 		
-		
+		// Since page is not default, get intent from previous page
 		intent = getIntent();
 		args = intent.getBundleExtra("BUNDLE");
 		myList = (ArrayList<OahuEvent>) args.getSerializable("MYLIST");
 		events = (ArrayList<OahuEvent>) args.getSerializable("EVENTS");
 		previousPage = (String) args.getSerializable("PREVIOUSPAGE");
 		currentEvent = (OahuEvent) args.getSerializable("OAHUEVENT");
-		
+		// Adapter that reads in an ArrayList of OahuEvents and places them in the ListView
 		adapter = new OahuEventListAdapter(MyListPage.this, R.layout.oahu_event_listview_item, (List<OahuEvent>)myList);
 		ListView myListView = (ListView)findViewById(R.id.mylistview);
 		myListView.setAdapter(adapter);
 		
-		
+		// If the explore button is clicked
 		exploreButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -71,14 +68,13 @@ public class MyListPage extends Activity {
 			
 		});
 		
+		// If the reset button gets clicked, add events that have been disliked back into event pool
 		resetButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				resetEventList();
 			}
-			
 		});
-		
 	}
 
 	@Override
@@ -102,6 +98,7 @@ public class MyListPage extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	// Function to handle back button presses, takes into account the previousPage and sends you back there
 	@Override
 	public void onBackPressed() {
 		if (previousPage.equals("ExplorePage")) {
@@ -119,6 +116,7 @@ public class MyListPage extends Activity {
 		} 
 	}
 	
+	// Function to remove OahuEvents from the ListView, incorporates an alert dialog for user confirmation
 	public void removeOahuEventOnClickHandler(View v) {
 		final OahuEvent itemToRemove = (OahuEvent)v.getTag();
 		AlertDialog.Builder confirm = new AlertDialog.Builder(this);
@@ -139,12 +137,10 @@ public class MyListPage extends Activity {
 				// Do nothing
 			}
 		});
-		
 		confirm.create().show();
-		
 	}
 	
-	
+	// If the more information button is clicked, get the approriate event and pass to myListPage
 	public void informationPageOnClickHandler(View v) {
 		currentEvent = (OahuEvent)v.getTag();
 		Intent intent = new Intent(this, MoreInformationPage.class);
@@ -155,6 +151,7 @@ public class MyListPage extends Activity {
 		startActivity(intent);
 	}
 	
+	// Function to reset the list of events
 	public void resetEventList() {
 	events = OahuEvent.createEvents();
 		for (OahuEvent cur : myList) {
@@ -164,6 +161,7 @@ public class MyListPage extends Activity {
 		}
 	}
 	
+	// Creates Bundles which are passed between activities to exchange informations
 	private Bundle createBundle() {
 		previousPage = "MyListPage";
 		Bundle args = new Bundle();
