@@ -29,7 +29,7 @@ public class OahuEvent implements Serializable {
 		OahuEvent maksLighthouse = new OahuEvent(R.drawable.makslighthouse, "   Makapu'u Lighthouse Trail   ", "Located on the east side of Oahu, enjoy the view!");
 		OahuEvent diamondHeadHike = new OahuEvent(R.drawable.diamondheadhike, "   Diamond Head Hike Trail    ", "Located east of Waikiki, enjoy the view!");
 		OahuEvent spittingCaves = new OahuEvent (R.drawable.spittingcaves, "   Spitting Caves Cliffs   ", "Located on the east side of Oahu, enjoy the view!");
-		OahuEvent hanaaumaBay = new OahuEvent (R.drawable.hanaaumabay, "   Hana'ama Bay   ", "Located on the east side of oahu, swim with the fishes!");
+		OahuEvent hanaaumaBay = new OahuEvent (R.drawable.hanaaumabay, "   Hanauma Bay   ", "Located on the east side of oahu, swim with the fishes!");
 		OahuEvent kokoHead = new OahuEvent (R.drawable.kokohead, "    Koko Head Hike    ", "Located on the east side of Oahu, reward yourself with the view!");
 		OahuEvent maunawili = new OahuEvent (R.drawable.maunawili, "    Maunawili Waterfall Hike   ", "Enjoy the hike and be rewarded with a beautiful waterfall!");
 		OahuEvent stairway = new OahuEvent (R.drawable.stairway, "    Stairway to Heaven Hike   ", "Located on the east side of Oahu, challenge yourself and enjoy the view!");
