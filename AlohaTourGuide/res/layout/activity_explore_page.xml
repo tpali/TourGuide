@@ -57,8 +57,10 @@
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/dislike_button"
         android:layout_below="@+id/eventName"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="40dp"
+        android:maxWidth="400dp"  
+ 		android:maxHeight="600dp"
         android:src="@drawable/waimeabw" />
 
     <TextView
@@ -67,9 +69,11 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/exploreButton"
         android:layout_below="@+id/myListButton"
-        android:layout_marginLeft="35dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:text="          Event Name        "
+        android:textSize="30sp"
+        android:textStyle="bold"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
@@ -93,5 +97,14 @@
         android:text="UNDO"
         android:textSize="20sp"
         android:textStyle="bold" />
+
+     <ImageButton
+         android:id="@+id/more_information_button"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_above="@+id/skip_button"
+         android:layout_alignRight="@+id/skip_button"
+         android:layout_marginBottom="14dp"
+         android:src="@drawable/more_information_button" />
 
 </RelativeLayout>

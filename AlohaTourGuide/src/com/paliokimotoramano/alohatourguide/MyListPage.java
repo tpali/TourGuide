@@ -32,7 +32,7 @@ public class MyListPage extends Activity {
 	ArrayList<OahuEvent> myList;
 	ArrayList<OahuEvent> events;
 	String previousPage;
-	OahuEvent eventPassedFromMoreInfo;
+	OahuEvent currentEvent;
 	Bundle args;
 	Intent intent;
 	
@@ -54,6 +54,7 @@ public class MyListPage extends Activity {
 		myList = (ArrayList<OahuEvent>) args.getSerializable("MYLIST");
 		events = (ArrayList<OahuEvent>) args.getSerializable("EVENTS");
 		previousPage = (String) args.getSerializable("PREVIOUSPAGE");
+		currentEvent = (OahuEvent) args.getSerializable("OAHUEVENT");
 		
 		adapter = new OahuEventListAdapter(MyListPage.this, R.layout.oahu_event_listview_item, (List<OahuEvent>)myList);
 		ListView myListView = (ListView)findViewById(R.id.mylistview);
@@ -109,10 +110,10 @@ public class MyListPage extends Activity {
 			intent.putExtra("BUNDLE",createBundle());
 			startActivity(intent);
 		} else if (previousPage.equals("MoreInformationPage")) {
-			eventPassedFromMoreInfo = (OahuEvent) args.getSerializable("OAHUEVENT");
+			currentEvent = (OahuEvent) args.getSerializable("OAHUEVENT");
 			Intent intent = new Intent(this, MoreInformationPage.class);
 			Bundle args = createBundle();
-			args.putSerializable("OAHUEVENT", (Serializable)eventPassedFromMoreInfo);
+			args.putSerializable("OAHUEVENT", (Serializable)currentEvent);
 			intent.putExtra("BUNDLE",args);
 			startActivity(intent);
 		} 
@@ -145,11 +146,11 @@ public class MyListPage extends Activity {
 	
 	
 	public void informationPageOnClickHandler(View v) {
-		OahuEvent itemToView = (OahuEvent)v.getTag();
+		currentEvent = (OahuEvent)v.getTag();
 		Intent intent = new Intent(this, MoreInformationPage.class);
 		// Pass myList to MyListPage
 		Bundle args = createBundle();
-		args.putSerializable("OAHUEVENT", (Serializable)itemToView);
+		args.putSerializable("OAHUEVENT", (Serializable)currentEvent);
 		intent.putExtra("BUNDLE",args);
 		startActivity(intent);
 	}
@@ -169,6 +170,7 @@ public class MyListPage extends Activity {
 		args.putSerializable("MYLIST",(Serializable)myList);
 		args.putSerializable("EVENTS",(Serializable)events);
 		args.putSerializable("PREVIOUSPAGE", (Serializable)previousPage);
+		args.putSerializable("OAHUEVENT", (Serializable)currentEvent);
 		return args;
 	}
 	

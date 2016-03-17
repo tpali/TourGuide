@@ -43,6 +43,7 @@ public class ExplorePage extends Activity {
 		final Button myListButton = (Button) findViewById(R.id.myListButton);
 		final ImageButton like_button = (ImageButton) findViewById(R.id.like_button);
 		final ImageButton dislike_button = (ImageButton) findViewById(R.id.dislike_button);
+		final ImageButton more_information_button = (ImageButton) findViewById(R.id.more_information_button);
 		final Button skip_button = (Button) findViewById(R.id.skip_button);
 		final Button undo_button = (Button) findViewById(R.id.undo_button);
 		
@@ -54,9 +55,12 @@ public class ExplorePage extends Activity {
 		myList = (ArrayList<OahuEvent>) args.getSerializable("MYLIST");
 		events = (ArrayList<OahuEvent>) args.getSerializable("EVENTS");
 		previousPage = (String) args.getSerializable("PREVIOUSPAGE");
+		currentEvent = (OahuEvent) args.getSerializable("OAHUEVENT");
 		}
 		
+		if (justOpened || (OahuEvent.getName(currentEvent) != "       No More Events       ")) {
 		currentEvent = OahuEvent.nextEvent(events);
+		}
 		
 		// Set the image being displayed to currentEvent's image
 		img = (ImageView) findViewById(R.id.exploreImage);
@@ -149,7 +153,22 @@ public class ExplorePage extends Activity {
 			
 		});
 		
-		
+		more_information_button.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				
+				if (OahuEvent.getName(currentEvent) != "       No More Events       ") {
+					Intent intent = new Intent(v.getContext(), MoreInformationPage.class);
+					// Pass myList to MyListPage
+					Bundle args = createBundle();
+					intent.putExtra("BUNDLE",args);
+					startActivity(intent);
+					justOpened = false;
+				}
+			}
+			
+		});
+				
 		 
 	}
 
@@ -183,9 +202,7 @@ public class ExplorePage extends Activity {
 				startActivity(intent);
 			} else if (previousPage.equals("MoreInformationPage")) {
 				Intent intent = new Intent(this, MoreInformationPage.class);
-				Bundle args = createBundle();
-				args.putSerializable("OAHUEVENT", (Serializable)currentEvent);
-				intent.putExtra("BUNDLE",args);
+				intent.putExtra("BUNDLE",createBundle());
 				startActivity(intent);
 			} 
 		}
@@ -197,6 +214,7 @@ public class ExplorePage extends Activity {
 		args.putSerializable("MYLIST",(Serializable)myList);
 		args.putSerializable("EVENTS",(Serializable)events);
 		args.putSerializable("PREVIOUSPAGE", (Serializable)previousPage);
+		args.putSerializable("OAHUEVENT", (Serializable)currentEvent);
 		return args;
 	}
 }

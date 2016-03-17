@@ -78,7 +78,7 @@ public class MoreInformationPage extends Activity {
 			intent.putExtra("BUNDLE",createBundle());
 			startActivity(intent);
 		} else if (previousPage.equals("ExplorePage")) {
-			Intent intent = new Intent(this, MoreInformationPage.class);
+			Intent intent = new Intent(this, ExplorePage.class);
 			Bundle args = createBundle();
 			intent.putExtra("BUNDLE",args);
 			startActivity(intent);
