@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?> 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="match_parent" >    
+    
+<TextView
+    android:id="@+id/list_item_string"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"
+    android:layout_centerHorizontal="true"
+    android:paddingLeft="8dp"
+    android:textSize="18sp"
+    android:textStyle="bold" />
+
+<ImageButton
+    android:id="@+id/delete_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentRight="true"
+    android:onClick="removeOahuEventOnClickHandler"
+    android:src="@android:drawable/ic_menu_delete" />
+
+<ImageButton
+    android:id="@+id/more_information_button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:onClick="informationPageOnClickHandler"
+    android:src="@drawable/more_information_button" />
+
+</RelativeLayout>
